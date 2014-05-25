@@ -30,7 +30,7 @@ handler action = case action of
                      _ -> return ()
 runDocTests :: String -> IO ()
 runDocTests file = case isHaskellSource file of 
-                   True -> void $ system $ "doctest -isrc " ++ file
+                   True -> void $ system $ "echo Running doctests in " ++ file ++ "&& doctest -isrc " ++ file
                    _ -> return ()
 
 isHaskellSource :: String -> Bool
