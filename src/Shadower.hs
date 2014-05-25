@@ -9,6 +9,7 @@ import System.FSNotify
 import System.Environment
 import System.Cmd
 import System.Exit
+import Data.String.Utils
 
 main :: IO ()
 main = getArgs >>= getFilePathFromArgs >>= run
@@ -28,4 +29,9 @@ handler action = case action of
                      Modified file _ -> runDocTests (encodeString file)
                      _ -> return ()
 runDocTests :: String -> IO ()
-runDocTests file = void $ system $ "doctest -isrc " ++ file
+runDocTests file = case isHaskellSource file of 
+                   True -> void $ system $ "doctest -isrc " ++ file
+                   _ -> return ()
+
+isHaskellSource :: String -> Bool
+isHaskellSource = endswith ".hs"
