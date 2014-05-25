@@ -3,7 +3,7 @@ version:             0.1.0.0
 synopsis:            An automated way to run doctests in files that are changing
 description:         An automated way to run doctests in files that are changing
 license:             PublicDomain
---license-file:        LICENSE
+license-file:        Unlicense.txt
 author:              Karun Ramakrishnan
 maintainer:          karun012@gmail.com
 -- copyright:           
