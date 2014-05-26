@@ -13,7 +13,6 @@ Download the [latest release](https://github.com/karun012/shadower/releases/late
     cabal install
 
 ##Usage  
-Make sure you have [doctest] (https://github.com/sol/doctest-haskell) installed
 
 ###To monitor a specific path
     shadower <path to monitor> 
