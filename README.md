@@ -5,7 +5,7 @@ Shadower watches a folder that you specify, and runs doctests on any Haskell sou
 
 ##Getting started
 
-Shadower is not published on [hackage](http://hackage.haskell.org/package/codex) yet
+Shadower is not published on [hackage](http://hackage.haskell.org) yet
 
 Download the latest release. Extract it
 
