@@ -6,12 +6,14 @@ import Filesystem.Path.CurrentOS (fromText, encodeString)
 import Data.Text (pack)
 import Data.String.Utils
 
-import Control.Monad (void)
+import Control.Exception
+import qualified Control.Exception as E
 
 import System.FSNotify
 import System.Environment
-import System.Cmd
 import System.Exit
+
+import Test.DocTest
 
 main :: IO ()
 main = getArgs >>= getFilePathFromArgs >>= watchPath
@@ -28,13 +30,21 @@ watchPath path = withManager $ \manager -> do
 
 handler :: Event -> IO()
 handler action = case action of 
-                 Modified file _ -> runDocTests (encodeString file)
+                 Modified file _ -> maybeRunDocTests (encodeString file)
                  _ -> return ()
 
-runDocTests :: String -> IO ()
-runDocTests file = case isHaskellSource file of 
-                   True -> void $ system $ "echo Running doctests in " ++ file ++ "&& doctest -isrc " ++ file
+maybeRunDocTests :: String -> IO ()
+maybeRunDocTests file = case isHaskellSource file of 
+                   True -> E.catch (runDocTests file) exceptionHandler
                    _ -> return ()
+
+exceptionHandler :: SomeException -> IO ()
+exceptionHandler _ = return ()
+
+runDocTests :: String -> IO ()
+runDocTests file = do
+              _ <- putStrLn $ "Running doctests in " ++ file
+              doctest [file]
 
 isHaskellSource :: String -> Bool
 isHaskellSource file = endswith ".hs" file || endswith ".lhs" file
