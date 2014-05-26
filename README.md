@@ -5,12 +5,9 @@ Shadower watches a folder that you specify, and runs doctests on any Haskell sou
 
 ##Setup
 
-Shadower is not published on [hackage](http://hackage.haskell.org) yet
+Shadower is published on [hackage](http://hackage.haskell.org/package/shadower-0.1.0.2)
 
-Download the [latest release](https://github.com/karun012/shadower/releases/latest). Extract it
-
-    cabal configure
-    cabal install
+    cabal install shadower
 
 ##Usage  
 
