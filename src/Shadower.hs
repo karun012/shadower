@@ -37,4 +37,4 @@ runDocTests file = case isHaskellSource file of
                    _ -> return ()
 
 isHaskellSource :: String -> Bool
-isHaskellSource = endswith ".hs"
+isHaskellSource file = endswith ".hs" file || endswith ".lhs" file
