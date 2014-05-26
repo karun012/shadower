@@ -35,11 +35,11 @@ handler action = case action of
 
 maybeRunDocTests :: String -> IO ()
 maybeRunDocTests file = case isHaskellSource file of 
-                   True -> E.catch (runDocTests file) exceptionHandler
+                   True -> E.catch (runDocTests file) ignoreAllExceptions
                    _ -> return ()
 
-exceptionHandler :: SomeException -> IO ()
-exceptionHandler _ = return ()
+ignoreAllExceptions :: SomeException -> IO ()
+ignoreAllExceptions _ = return ()
 
 runDocTests :: String -> IO ()
 runDocTests file = do
