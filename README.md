@@ -3,7 +3,7 @@
 Shadower watches a folder that you specify, and runs doctests on any Haskell sources in the folder that are modified
 
 
-##Getting started
+##Setup
 
 Shadower is not published on [hackage](http://hackage.haskell.org) yet
 
