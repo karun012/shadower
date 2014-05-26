@@ -12,4 +12,9 @@ Clone the repository
     cabal install
 
 ##Usage  
-    shadower <path to monitor>
+
+###To monitor a specific path
+    shadower <path to monitor> 
+
+###To monitor the current folder
+    shadower
