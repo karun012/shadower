@@ -7,7 +7,7 @@ Shadower watches a folder that you specify, and runs doctests on any Haskell sou
 
 Shadower is not published on [hackage](http://hackage.haskell.org) yet
 
-Download the latest release. Extract it
+Download the [latest release](https://github.com/karun012/shadower/releases/latest). Extract it
 
     cabal configure
     cabal install
