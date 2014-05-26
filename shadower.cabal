@@ -1,5 +1,5 @@
 name:                shadower
-version:             0.1.0.0
+version:             0.1.0.1
 synopsis:            An automated way to run doctests in files that are changing
 description:         An automated way to run doctests in files that are changing
 license:             PublicDomain
