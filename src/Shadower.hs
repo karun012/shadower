@@ -14,15 +14,15 @@ import System.Cmd
 import System.Exit
 
 main :: IO ()
-main = getArgs >>= getFilePathFromArgs >>= run
+main = getArgs >>= getFilePathFromArgs >>= watchPath
 
-getFilePathFromArgs ::  [String] -> IO FilePath
-getFilePathFromArgs []       = return "."
+getFilePathFromArgs :: [String] -> IO FilePath
 getFilePathFromArgs (filePath:_) = return filePath
+getFilePathFromArgs []       = return "."
 
-run :: FilePath -> IO ()
-run path = withManager $ \m -> do
-       _ <- watchTree m (fromText $ pack path) (const True) handler
+watchPath :: FilePath -> IO ()
+watchPath path = withManager $ \manager -> do
+       _ <- watchTree manager (fromText $ pack path) (const True) handler
        _ <- getLine
        exitSuccess
 
