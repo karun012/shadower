@@ -1,13 +1,15 @@
-# shadower
+#shadower
 
-Shadower watches the filesystem, and runs doctests on Haskell sources that are modified
+Shadower watches a folder that you specify, and runs doctests on any Haskell sources in the folder that are modified
 
 
-## Getting started
+##Getting started
 
-Shadower is not published on hackage yet
+Shadower is not published on [hackage](http://hackage.haskell.org/package/codex) yet
 
 Clone the repository
-  cabal install
-  
-  shadower <path to monitor>
+
+    cabal install
+
+##Usage  
+    shadower <path to monitor>
