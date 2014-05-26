@@ -13,6 +13,7 @@ Download the latest release. Extract it
     cabal install
 
 ##Usage  
+Make sure you have [doctest] (https://github.com/sol/doctest-haskell) installed
 
 ###To monitor a specific path
     shadower <path to monitor> 
