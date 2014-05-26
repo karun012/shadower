@@ -28,8 +28,8 @@ watchPath path = withManager $ \manager -> do
 
 handler :: Event -> IO()
 handler action = case action of 
-                     Modified file _ -> runDocTests (encodeString file)
-                     _ -> return ()
+                 Modified file _ -> runDocTests (encodeString file)
+                 _ -> return ()
 
 runDocTests :: String -> IO ()
 runDocTests file = case isHaskellSource file of 
