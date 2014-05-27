@@ -1,6 +1,6 @@
 #shadower
 
-Shadower watches a folder that you specify, and runs doctests on any Haskell sources in the folder that are modified
+Shadower watches a folder that you specify, and runs doctests in any Haskell sources in the folder that are modified
 
 
 ##Setup
