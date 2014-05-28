@@ -9,6 +9,8 @@ import Data.String.Utils
 
 import Control.Exception
 import qualified Control.Exception as E
+import Control.Applicative
+import Safe (headMay)
 
 import System.FSNotify
 import System.Environment
@@ -17,11 +19,10 @@ import System.Exit
 import Test.DocTest
 
 main :: IO ()
-main = getArgs >>= getFilePathFromArgs >>= watchPath
+main = getFilePathFromArgs <$> getArgs >>= watchPath
 
-getFilePathFromArgs :: [String] -> IO FilePath
-getFilePathFromArgs (filePath:_) = return filePath
-getFilePathFromArgs []       = return "."
+getFilePathFromArgs :: [String] -> String
+getFilePathFromArgs = maybe "." id . headMay
 
 watchPath :: FilePath -> IO ()
 watchPath path = withManager $ \manager -> do
@@ -45,9 +46,14 @@ ignoreAllExceptions _ = return ()
 runDocTests :: String -> IO ()
 runDocTests file = do
               _ <- putStrLn $ "Running doctests in " ++ file
-              doctest $ generateAllSourceLocations file ++ [file]
-generateAllSourceLocations :: String -> [String]
-generateAllSourceLocations "/" = []
-generateAllSourceLocations xs = (generateAllSourceLocations $ encodeString $ parent $ fromText $ pack xs) ++ ["-i" ++ (encodeString $ parent $ fromText $ pack xs)]
+              doctest $ everyPossibleSourceLocationFromRoot file ++ [file]
+
+everyPossibleSourceLocationFromRoot :: String -> [String]
+everyPossibleSourceLocationFromRoot "/" = []
+everyPossibleSourceLocationFromRoot currentFolder = (everyPossibleSourceLocationFromRoot $ parentFolderAsString currentFolder) ++ ["-i" ++ (parentFolderAsString currentFolder)]
+
+parentFolderAsString :: String -> String
+parentFolderAsString = encodeString . parent . fromText . pack
+
 isHaskellSource :: String -> Bool
 isHaskellSource file = endswith ".hs" file || endswith ".lhs" file
