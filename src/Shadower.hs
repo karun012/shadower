@@ -2,7 +2,8 @@
  
 module Main where
 
-import Filesystem.Path.CurrentOS (fromText, encodeString)
+import Filesystem.Path.CurrentOS (fromText, encodeString, dirname)
+import Filesystem.Path (parent)
 import Data.Text (pack)
 import Data.String.Utils
 
@@ -44,7 +45,9 @@ ignoreAllExceptions _ = return ()
 runDocTests :: String -> IO ()
 runDocTests file = do
               _ <- putStrLn $ "Running doctests in " ++ file
-              doctest [file]
-
+              doctest $ generateAllSourceLocations file ++ [file]
+generateAllSourceLocations :: String -> [String]
+generateAllSourceLocations "/" = []
+generateAllSourceLocations xs = (generateAllSourceLocations $ encodeString $ parent $ fromText $ pack xs) ++ ["-i" ++ (encodeString $ parent $ fromText $ pack xs)]
 isHaskellSource :: String -> Bool
 isHaskellSource file = endswith ".hs" file || endswith ".lhs" file
