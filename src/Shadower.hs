@@ -2,7 +2,7 @@
  
 module Main where
 
-import Filesystem.Path.CurrentOS (fromText, encodeString, dirname)
+import Filesystem.Path.CurrentOS (fromText, encodeString)
 import Filesystem.Path (parent)
 import Data.Text (pack)
 import Data.String.Utils
