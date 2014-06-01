@@ -21,6 +21,15 @@ import Test.DocTest
 main :: IO ()
 main = getFilePathFromArgs <$> getArgs >>= watchPath
 
+-- | Gets the file path from arguments
+-- If there are no arguments, then it returns "." (the current folder)
+--
+-- >>> getFilePathFromArgs []
+-- "."
+--
+-- >>> getFilePathFromArgs ["/aFolder"]
+-- "/aFolder"
+--
 getFilePathFromArgs :: [String] -> String
 getFilePathFromArgs = maybe "." id . headMay
 
@@ -40,6 +49,11 @@ maybeRunDocTests file = case isHaskellSource file of
                    True -> E.catch (runDocTests file) ignoreAllExceptions
                    _ -> return ()
 
+-- | Exception handler that ignores all exceptions
+-- Returns nothing
+--
+-- >>> ignoreAllExceptions $ error "wat"
+-- 
 ignoreAllExceptions :: SomeException -> IO ()
 ignoreAllExceptions _ = return ()
 
@@ -48,12 +62,35 @@ runDocTests file = do
               _ <- putStrLn $ "Running doctests in " ++ file
               doctest $ everyPossibleSourceLocationFromRoot file ++ [file]
 
+-- | Returns a list of -i<folders> recursively from root 
+-- to the parent of the current folder
+-- 
+-- >>> everyPossibleSourceLocationFromRoot "/home"
+-- ["-i/"]
+--
+-- >>> everyPossibleSourceLocationFromRoot "/usr/share"
+-- ["-i/","-i/usr/"]
 everyPossibleSourceLocationFromRoot :: String -> [String]
 everyPossibleSourceLocationFromRoot "/" = []
 everyPossibleSourceLocationFromRoot currentFolder = (everyPossibleSourceLocationFromRoot $ parentFolderAsString currentFolder) ++ ["-i" ++ (parentFolderAsString currentFolder)]
 
+-- | Gets the string representation of the 
+-- parent folder for a given folder
+--
+-- >>> parentFolderAsString "/home"
+-- "/"
 parentFolderAsString :: String -> String
 parentFolderAsString = encodeString . parent . fromText . pack
 
+-- | Checks if the file type is .hs or .lhs
+--
+-- >>> isHaskellSource "wat.bleh"
+-- False
+--
+-- >>> isHaskellSource "wat.hs"
+-- True
+--
+-- >>> isHaskellSource "wat.lhs"
+-- True
 isHaskellSource :: String -> Bool
 isHaskellSource file = endswith ".hs" file || endswith ".lhs" file
