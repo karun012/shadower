@@ -1,4 +1,4 @@
-#shadower ![alt text](https://travis-ci.org/karun012/shadower.svg?branch=master)
+#shadower [![build status](https://travis-ci.org/karun012/shadower.png)](https://travis-ci.org/karun012/shadower)
 
 Shadower watches a folder that you specify, and runs doctests in any Haskell sources in the folder that are modified
 
