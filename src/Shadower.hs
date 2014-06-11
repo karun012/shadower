@@ -72,7 +72,7 @@ runDocTests file = do
 -- ["-i/","-i/usr/"]
 everyPossibleSourceLocationFromRoot :: String -> [String]
 everyPossibleSourceLocationFromRoot "/" = []
-everyPossibleSourceLocationFromRoot currentFolder = (everyPossibleSourceLocationFromRoot $ parentFolderAsString currentFolder) ++ ["-i" ++ (parentFolderAsString currentFolder)]
+everyPossibleSourceLocationFromRoot currentFolder = (everyPossibleSourceLocationFromRoot . parentFolderAsString) currentFolder ++ ["-i" ++ parentFolderAsString currentFolder]
 
 -- | Gets the string representation of the 
 -- parent folder for a given folder
