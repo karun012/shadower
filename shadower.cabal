@@ -1,5 +1,5 @@
 name:                shadower
-version:             0.1.0.4
+version:             0.1.0.5
 synopsis:            An automated way to run doctests in files that are changing
 description:         Shadower watches folders with Haskell sources, and runs doctests in files that are modified
 homepage:            http://github.com/karun012/shadower
